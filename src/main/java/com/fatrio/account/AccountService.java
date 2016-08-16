@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.domain.Specification;
@@ -72,12 +73,26 @@ public class AccountService implements UserDetailsService {
 	}
 	
 	@Transactional
+	public Page<Account> findAll(Pageable page) {
+		return this.accountRepository.findAll(page);
+	}
+	
+	@Transactional
+	public Account findOne(Specification<Account> spec) {
+		return this.accountRepository.findOne(spec);
+	}
+	
+	@Transactional
 	public Slice<Account> find(Specification<Account> specs, Pageable page) {
 		return this.accountRepository.findAll(specs, page);
 	}
 	
 	public Specification<Account> hasEmail(String email) {
 		return (root, query, cb) -> cb.equal(root.get(Account_.email), email);
+	}
+	
+	public Specification<Account> hasRole(String role) {
+		return (root, query, cb) -> cb.equal(root.get(Account_.role), role);
 	}
 
 }
