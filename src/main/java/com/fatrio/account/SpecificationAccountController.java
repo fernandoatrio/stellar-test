@@ -3,6 +3,8 @@ package com.fatrio.account;
 import static org.springframework.data.jpa.domain.Specifications.where;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,13 @@ public class SpecificationAccountController {
     public Account currentAccountSpecifications(@RequestParam String email) {
         Specification<Account> hasEmail = this.accountService.hasEmail(email);
         return this.accountService.findOne(hasEmail);
+    }
+
+    @RequestMapping(value = "account/current/specifications/all/page", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public Page<Account> currentAccountSpecificationsAll(Pageable page) {
+        return this.accountService.findAll(page);
     }
 
     @RequestMapping(value = "account/current/specifications/all", method = RequestMethod.GET)
