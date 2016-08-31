@@ -88,6 +88,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-jpamodelgen</artifactId>
+    		<!-- <version>1.0.0</version> -->
+		</dependency>
         <!-- Avoid: javax.validation.ValidationException: HV000183: Unable to load 'javax.el.ExpressionFactory' -->
         <dependency>
             <groupId>javax.el</groupId>
@@ -208,6 +213,9 @@
                 <configuration>
                     <source>${java-version}</source>
                     <target>${java-version}</target>
+			        <compilerArguments>
+			            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+			        </compilerArguments>
                 </configuration>
             </plugin>
             <plugin>
