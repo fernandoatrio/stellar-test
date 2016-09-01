@@ -5,10 +5,10 @@
 >
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fatrio</groupId>
-    <artifactId>mvc-quickstart</artifactId>
+    <artifactId>stellar-test</artifactId>
     <packaging>war</packaging>
     <version>0.0.1</version>
-    <name>Spring MVC Application</name>
+    <name>Stellar Test</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java-version>1.8</java-version>
@@ -23,7 +23,20 @@
         <version>2.0.3.RELEASE</version>
         <relativePath/>
     </parent>
+    <repositories>
+	    <!-- Jitpack  -->
+	    <repository>
+	        <id>jitpack.io</id>
+	        <url>https://jitpack.io</url>
+		</repository>
+    </repositories>
     <dependencies>
+    	<!-- Stellar -->
+		<dependency>
+		    <groupId>com.github.stellar</groupId>
+		    <artifactId>java-stellar-sdk</artifactId>
+		    <version>0.1.6</version>
+		</dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
