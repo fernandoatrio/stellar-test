@@ -1,5 +1,6 @@
 package com.fatrio.account;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import javax.annotation.PostConstruct;
@@ -36,8 +37,18 @@ public class AccountService implements UserDetailsService {
 
 	@PostConstruct	
 	protected void initialize() {
-		save(new Account("user", "demo", "ROLE_USER"));
-		save(new Account("admin", "admin", "ROLE_ADMIN"));
+		// This is hardcoded to avoid loosing the account information with every app restart (the system is using a memory DB)
+		// AccountId: GC4U45NTFCMGT62FC4D6WBQWEBPXRUBWBMQGHHS3KJBSUZMSSR32BJPA, SecretSeed: SA2TIHXJ7FKTCLK5JODFAT3W7TWXLUKED7CQNIMMGV7SHHHAU5IRITC5
+		Account user = new Account("user", "demo", "ROLE_USER");
+		user.setStellarAccountId("GC4U45NTFCMGT62FC4D6WBQWEBPXRUBWBMQGHHS3KJBSUZMSSR32BJPA");
+		user.setStellarSecretSeed("SA2TIHXJ7FKTCLK5JODFAT3W7TWXLUKED7CQNIMMGV7SHHHAU5IRITC5");		
+		// AccountId: GASSGK5AG3H4BNIALSBICPSKERP2OIYGECFTWPHNWFTIVZXH2VJMAQN7, SecretSeed: SA7ARASD7VOFTYMW7YMOOPKOCLGUBJR6GDU6OSKSUSZVKNJCUFLIXM6X
+		Account admin = new Account("admin", "admin", "ROLE_ADMIN");
+		admin.setStellarAccountId("GASSGK5AG3H4BNIALSBICPSKERP2OIYGECFTWPHNWFTIVZXH2VJMAQN7");
+		admin.setStellarSecretSeed("SA7ARASD7VOFTYMW7YMOOPKOCLGUBJR6GDU6OSKSUSZVKNJCUFLIXM6X");
+		
+		for (Account account : Arrays.asList(user, admin))
+			save(account);
 	}
 
 	@Transactional

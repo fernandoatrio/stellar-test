@@ -22,6 +22,9 @@ public class Account implements java.io.Serializable {
 	
 	@JsonIgnore
 	private String password;
+	
+	private String stellarAccountId;
+	private String stellarSecretSeed;
 
 	private String role = "ROLE_USER";
 
@@ -68,5 +71,21 @@ public class Account implements java.io.Serializable {
 
 	public Instant getCreated() {
 		return created;
+	}
+
+	public String getStellarAccountId() {
+		return stellarAccountId;
+	}
+
+	public void setStellarAccountId(String stellarAccountId) {
+		this.stellarAccountId = stellarAccountId;
+	}
+
+	public String getStellarSecretSeed() {
+		return stellarSecretSeed;
+	}
+
+	public void setStellarSecretSeed(String stellarSecretSeed) {
+		this.stellarSecretSeed = stellarSecretSeed;
 	}
 }

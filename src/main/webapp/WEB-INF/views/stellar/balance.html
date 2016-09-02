@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{view.index.title}">Stellar Accounts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <h1>
+        Stellar accounts.
+    </h1>
+    <div class="container-fluid">
+    	<table class=table>
+    		<caption>Account Balance</caption>
+    		<thead>
+    			<tr>
+    				<th>#</th>
+    				<th>ID</th>
+    				<th>Email</th>
+    				<th>Stellar Account ID</th>    				    			
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<tr th:each="account,iterStat :${accounts.getContent()}">
+    				<td th:text="${iterStat.index + 1}"></td>
+    				<td th:text="${account.id}"></td>
+    				<td th:text="${account.email}"></td>
+    				<td th:text="${account.stellarAccountId}"></td>
+    			</tr>
+    		</tbody>
+    	</table>
+    </div>
+</div>
+</body>
+</html>
