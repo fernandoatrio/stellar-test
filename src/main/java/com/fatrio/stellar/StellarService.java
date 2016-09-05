@@ -12,9 +12,15 @@ import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.stellar.sdk.CreateAccountOperation;
 import org.stellar.sdk.KeyPair;
+import org.stellar.sdk.Memo;
 import org.stellar.sdk.Server;
+import org.stellar.sdk.Transaction;
 import org.stellar.sdk.responses.AccountResponse;
+import org.stellar.sdk.responses.AccountResponse.Balance;
+
+import com.fatrio.account.Account;
 
 @Service
 public class StellarService {
@@ -48,6 +54,27 @@ public class StellarService {
 	public AccountResponse account(KeyPair pair) throws IOException {
 		Server server = new Server(TESTNET);
 		return server.accounts().account(pair);
+	}
+
+	public void loadBalanceInformation(Iterable<Account> accounts) throws IOException {
+		for (Account account : accounts) {
+			KeyPair pair = KeyPair.fromAccountId(account.getStellarAccountId());
+			AccountResponse stellarAccount = this.account(pair);
+			Balance balance = stellarAccount.getBalances()[0]; // Assume only native currency
+			account.setStellarBalance(balance.getBalance());
+		}
+	}
+
+	public void transfer(Account source, Account destination, Long amount) {
+	    KeyPair srcPair = KeyPair.fromAccountId(source.getStellarAccountId());
+	    KeyPair destPair = KeyPair.fromAccountId(destination.getStellarAccountId());
+		
+	    org.stellar.sdk.Account account = new org.stellar.sdk.Account(srcPair, 2908908335136768L);
+	    Transaction transaction = new Transaction.Builder(account)
+	            .addOperation(new CreateAccountOperation.Builder(destPair, Long.toString(amount)).build())
+	            .build();
+	    
+	    transaction.sign(srcPair);
 	}
 
 }

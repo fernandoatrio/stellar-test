@@ -22,13 +22,12 @@ public class Account implements java.io.Serializable {
 	
 	@JsonIgnore
 	private String password;
+	private String role = "ROLE_USER";
+	private Instant created;
 	
 	private String stellarAccountId;
 	private String stellarSecretSeed;
-
-	private String role = "ROLE_USER";
-
-	private Instant created;
+	private String stellarBalance;
 
     protected Account() {
 
@@ -87,5 +86,13 @@ public class Account implements java.io.Serializable {
 
 	public void setStellarSecretSeed(String stellarSecretSeed) {
 		this.stellarSecretSeed = stellarSecretSeed;
+	}
+
+	public void setStellarBalance(String balance) {
+		this.stellarBalance = balance;
+	}
+
+	public String getStellarBalance() {
+		return this.stellarBalance;
 	}
 }

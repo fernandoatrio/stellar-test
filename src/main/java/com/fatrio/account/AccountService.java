@@ -98,6 +98,10 @@ public class AccountService implements UserDetailsService {
 		return this.accountRepository.findAll(specs, page);
 	}
 	
+	public Specification<Account> hasStellarAccountId(String stellarAccountId) {
+		return (root, query, cb) -> cb.equal(root.get(Account_.stellarAccountId), stellarAccountId);
+	}
+	
 	public Specification<Account> hasEmail(String email) {
 		return (root, query, cb) -> cb.equal(root.get(Account_.email), email);
 	}
